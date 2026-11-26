@@ -1,0 +1,464 @@
+{
+  "provenance": "Recovered evaluator: Table 1 manually transcribed and checked against DroidBench 1.0 source. Expected sink sites are serialized in the original artifact Jimple representation. This is not the unavailable original scoring script.",
+  "unit": "One native InfoflowResults SinkInfo entry, matching the original res.size() grouping; not APK classification and not number of SourceInfo entries.",
+  "identity": "Exact enclosing method signature and complete sink statement; no text normalization, fuzzy matching, count clipping or added deduplication.",
+  "review_notes": {
+    "AnonymousClass1": "One sink parameter combines latitude and longitude; Table 1 counts one leak, unlike the stale source annotation 2.",
+    "Button2": "Three true sink sites: SMS and Log in button1, Log in button3. Log in button2 follows imei=null and is a false alarm. Source annotation 2 omits button3 Log.",
+    "UnreachableCode": "Uncalled private method; no reachable leak. Source annotation 1 is not used.",
+    "InactiveActivity": "No true leak; original artifact returned an empty non-null result in this run."
+  },
+  "cases": [
+    {
+      "apk": "ArraysAndLists_ArrayAccess1.apk",
+      "paper_row": "ArrayAccess1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/ArraysAndLists_ArrayAccess1",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 1,
+      "paper_fn": 0
+    },
+    {
+      "apk": "ArraysAndLists_ArrayAccess2.apk",
+      "paper_row": "ArrayAccess2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/ArraysAndLists_ArrayAccess2",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 1,
+      "paper_fn": 0
+    },
+    {
+      "apk": "ArraysAndLists_ListAccess1.apk",
+      "paper_row": "ListAccess1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/ArraysAndLists_ListAccess1",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 1,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_AnonymousClass1.apk",
+      "paper_row": "AnonymousClass1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_AnonymousClass1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.AnnonymousClass1: void onResume()>",
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"TAG\", $r3)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_Button1.apk",
+      "paper_row": "Button1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_Button1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.Button1: void sendMessage(android.view.View)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49\", null, $r5, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_Button2.apk",
+      "paper_row": "Button2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_Button2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.Button2: void clickOnButton3(android.view.View)>",
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"TAG\", $r3)"
+        },
+        {
+          "method": "<de.ecspride.Button2$1: void onClick(android.view.View)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r5, null, null)"
+        },
+        {
+          "method": "<de.ecspride.Button2$1: void onClick(android.view.View)>",
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"TAG\", $r3)"
+        }
+      ],
+      "paper_tp": 3,
+      "paper_fp": 1,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_LocationLeak1.apk",
+      "paper_row": "LocationLeak1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_LocationLeak1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.LocationLeak1: void onResume()>",
+          "statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>(\"Longtitude\", $r1)"
+        },
+        {
+          "method": "<de.ecspride.LocationLeak1: void onResume()>",
+          "statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>(\"Latitude\", $r3)"
+        }
+      ],
+      "paper_tp": 2,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_LocationLeak2.apk",
+      "paper_row": "LocationLeak2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_LocationLeak2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.LocationLeak2: void onResume()>",
+          "statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>(\"Longtitude\", $r1)"
+        },
+        {
+          "method": "<de.ecspride.LocationLeak2: void onResume()>",
+          "statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>(\"Latitude\", $r3)"
+        }
+      ],
+      "paper_tp": 2,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Callbacks_MethodOverride1.apk",
+      "paper_row": "MethodOverride1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Callbacks_MethodOverride1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MethodOverride1: void attachBaseContext(android.content.Context)>",
+          "statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>(\"EX\", $r3)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_FieldSensitivity1.apk",
+      "paper_row": "FieldSensitivity1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_FieldSensitivity1",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_FieldSensitivity2.apk",
+      "paper_row": "FieldSensitivity2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_FieldSensitivity2",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_FieldSensitivity3.apk",
+      "paper_row": "FieldSensitivity3",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_FieldSensitivity3",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.FieldSensitivity3: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_FieldSensitivity4.apk",
+      "paper_row": "FieldSensitivity4",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_FieldSensitivity4",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_InheritedObjects1.apk",
+      "paper_row": "InheritedObjects1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_InheritedObjects1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.InheritedObjects1: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_ObjectSensitivity1.apk",
+      "paper_row": "ObjectSensitivity1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_ObjectSensitivity1",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "FieldAndObjectSensitivity_ObjectSensitivity2.apk",
+      "paper_row": "ObjectSensitivity2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/FieldAndObjectSensitivity_ObjectSensitivity2",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "InterAppCommunication_IntentSink1.apk",
+      "paper_row": "IntentSink1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/InterAppCommunication_IntentSink1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.IntentSink1: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r0.<de.ecspride.IntentSink1: void setResult(int,android.content.Intent)>(-1, $r3)"
+        }
+      ],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 1
+    },
+    {
+      "apk": "InterAppCommunication_IntentSink2.apk",
+      "paper_row": "IntentSink2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/InterAppCommunication_IntentSink2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.IntentSink2: void startIntent(android.view.View)>",
+          "statement": "virtualinvoke $r0.<de.ecspride.IntentSink2: void startActivity(android.content.Intent)>($r3)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "InterAppCommunication_ActivityCommunication1.apk",
+      "paper_row": "ActivityCommunication1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/InterAppCommunication_ActivityCommunication1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.Activity1: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_BroadcastReceiverLifecycle1.apk",
+      "paper_row": "BroadcastReceiverLifecycle1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_BroadcastReceiverLifecycle1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.TestReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+          "statement": "virtualinvoke $r3.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r4, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_ActivityLifecycle1.apk",
+      "paper_row": "ActivityLifecycle1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_ActivityLifecycle1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.ActivityLifecycle1: void connect()>",
+          "statement": "specialinvoke $r2.<java.net.URL: void <init>(java.lang.String)>($r3)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_ActivityLifecycle2.apk",
+      "paper_row": "ActivityLifecycle2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_ActivityLifecycle2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.GeneralActivity: void onResume()>",
+          "statement": "virtualinvoke $r1.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_ActivityLifecycle3.apk",
+      "paper_row": "ActivityLifecycle3",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_ActivityLifecycle3",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainActivity: void onRestoreInstanceState(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r4, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_ActivityLifecycle4.apk",
+      "paper_row": "ActivityLifecycle4",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_ActivityLifecycle4",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainActivity: void onPause()>",
+          "statement": "virtualinvoke $r1.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "Lifecycle_ServiceLifecycle1.apk",
+      "paper_row": "ServiceLifecycle1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/Lifecycle_ServiceLifecycle1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainService: void onLowMemory()>",
+          "statement": "virtualinvoke $r1.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidNonspecific_Loop1.apk",
+      "paper_row": "Loop1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/GeneralJava_Loop1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.LoopExample1: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidNonspecific_Loop2.apk",
+      "paper_row": "Loop2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/GeneralJava_Loop2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.LoopExample2: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidNonspecific_SourceCodeSpecific1.apk",
+      "paper_row": "SourceCodeSpecific1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/GeneralJava_SourceCodeSpecific1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainActivity: void sendSMS(java.util.Set,java.lang.String)>",
+          "statement": "virtualinvoke $r3.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r6, null, $r2, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidNonspecific_StaticInitialization1.apk",
+      "paper_row": "StaticInitialization1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/GeneralJava_StaticInitialization1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainActivity$StaticInitClass1: void <clinit>()>",
+          "statement": "virtualinvoke $r0.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r2, null, null)"
+        }
+      ],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 1
+    },
+    {
+      "apk": "AndroidNonspecific_UnreachableCode.apk",
+      "paper_row": "UnreachableCode",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/GeneralJava_UnreachableCode",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidSpecific_PrivateDataLeak1.apk",
+      "paper_row": "PrivateDataLeak1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/AndroidSpecific_PrivateDataLeak1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.PrivateDateLeakage: void sendMessage(android.view.View)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r4, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidSpecific_PrivateDataLeak2.apk",
+      "paper_row": "PrivateDataLeak2",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/AndroidSpecific_PrivateDataLeak2",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.PrivateDataLeak2: void onCreate(android.os.Bundle)>",
+          "statement": "staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>(\"Password\", $r6)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidSpecific_DirectLeak1.apk",
+      "paper_row": "DirectLeak1",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/AndroidSpecific_DirectLeak1",
+      "expected_sinks": [
+        {
+          "method": "<de.ecspride.MainActivity: void onCreate(android.os.Bundle)>",
+          "statement": "virtualinvoke $r2.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>(\"+49 1234\", null, $r3, null, null)"
+        }
+      ],
+      "paper_tp": 1,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidSpecific_InactiveActivity.apk",
+      "paper_row": "InactiveActivity",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/AndroidSpecific_InactiveActivity",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    },
+    {
+      "apk": "AndroidSpecific_LogNoLeak.apk",
+      "paper_row": "LogNoLeak",
+      "source_project": "vendor/DroidBench-1.0/eclipse-project/AndroidSpecific_LogNoLeak",
+      "expected_sinks": [],
+      "paper_tp": 0,
+      "paper_fp": 0,
+      "paper_fn": 0
+    }
+  ]
+}

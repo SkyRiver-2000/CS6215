@@ -1,0 +1,989 @@
+{
+  "provenance": "TaintBench findings mapped to sink statements by evaluation/gold/make_taintbench.py",
+  "unit": "sink statement; positive if any expected finding ends there, negative if only unexpected ones do",
+  "scoring": "TP = reported positive sink, FP = reported negative sink, other reported sinks are 'unlisted' (TaintBench protocol: only labelled flows are scored)",
+  "cases": [
+    {
+      "case": "proxy_samp",
+      "apk": "proxy_samp.apk",
+      "expected_sinks": [
+        {
+          "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+          "index": 35,
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r10)",
+          "finding_ids": [
+            1
+          ]
+        },
+        {
+          "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+          "index": 66,
+          "statement": "$r13 = interfaceinvoke $r6.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r11)",
+          "finding_ids": [
+            2
+          ]
+        },
+        {
+          "method": "<com.smart.studio.proxy.ProxyService$ProxyThread: void run()>",
+          "index": 31,
+          "statement": "$r3 = virtualinvoke $r14.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r2)",
+          "finding_ids": [
+            3,
+            10
+          ]
+        },
+        {
+          "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+          "index": 16,
+          "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)",
+          "finding_ids": [
+            4,
+            5,
+            6,
+            11,
+            12,
+            14,
+            15
+          ]
+        },
+        {
+          "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+          "index": 8,
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)",
+          "finding_ids": [
+            7,
+            8,
+            9,
+            13,
+            17,
+            18
+          ]
+        }
+      ],
+      "negative_sinks": [
+        {
+          "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+          "index": 157,
+          "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"post\", $r3)",
+          "finding_ids": [
+            19,
+            20
+          ]
+        }
+      ],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+            "index": 13,
+            "statement": "$i0 = virtualinvoke $r23.<android.telephony.gsm.GsmCellLocation: int getLac()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+            "index": 35,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r10)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+            "index": 13,
+            "statement": "$i0 = virtualinvoke $r23.<android.telephony.gsm.GsmCellLocation: int getLac()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService$PollerThread: void run()>",
+            "index": 66,
+            "statement": "$r13 = interfaceinvoke $r6.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r11)"
+          }
+        },
+        {
+          "finding_id": 3,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService$ProxyThread: void run()>",
+            "index": 4,
+            "statement": "specialinvoke $r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r9, \"ProxyLog.out\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService$ProxyThread: void run()>",
+            "index": 31,
+            "statement": "$r3 = virtualinvoke $r14.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r2)"
+          }
+        },
+        {
+          "finding_id": 4,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void onCreate()>",
+            "index": 20,
+            "statement": "$r3 = virtualinvoke $r2.<android.accounts.AccountManager: android.accounts.Account[] getAccounts()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 5,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void onCreate()>",
+            "index": 20,
+            "statement": "$r3 = virtualinvoke $r2.<android.accounts.AccountManager: android.accounts.Account[] getAccounts()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 6,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QuerySMSLog(boolean)>",
+            "index": 50,
+            "statement": "$r4 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, $r8, null, \"date\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 7,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 56,
+            "statement": "$r8 = virtualinvoke $r15.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        },
+        {
+          "finding_id": 8,
+          "source": {
+            "method": "<com.smart.studio.proxy.SMSReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 40,
+            "statement": "$r12 = virtualinvoke $r14.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        },
+        {
+          "finding_id": 9,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void onCreate()>",
+            "index": 20,
+            "statement": "$r3 = virtualinvoke $r2.<android.accounts.AccountManager: android.accounts.Account[] getAccounts()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        },
+        {
+          "finding_id": 10,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void onCreate()>",
+            "index": 20,
+            "statement": "$r3 = virtualinvoke $r2.<android.accounts.AccountManager: android.accounts.Account[] getAccounts()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService$ProxyThread: void run()>",
+            "index": 31,
+            "statement": "$r3 = virtualinvoke $r14.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r2)"
+          }
+        },
+        {
+          "finding_id": 11,
+          "source": {
+            "method": "<com.smart.studio.proxy.SMSReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 40,
+            "statement": "$r12 = virtualinvoke $r14.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 12,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 56,
+            "statement": "$r8 = virtualinvoke $r15.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 13,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QuerySMSLog(boolean)>",
+            "index": 50,
+            "statement": "$r4 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, $r8, null, \"date\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        },
+        {
+          "finding_id": 14,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QueryPhoneLog(boolean)>",
+            "index": 83,
+            "statement": "$r3 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, $r8, null, \"date\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 15,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QueryPhoneLog(boolean)>",
+            "index": 7,
+            "statement": "$r3 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, null, null, \"date DESC\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 17,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QueryPhoneLog(boolean)>",
+            "index": 83,
+            "statement": "$r3 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, $r8, null, \"date\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        },
+        {
+          "finding_id": 18,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: void QueryPhoneLog(boolean)>",
+            "index": 7,
+            "statement": "$r3 = virtualinvoke $r9.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, null, null, \"date DESC\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogFile(java.lang.String)>",
+            "index": 8,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"proxy\", $r2)"
+          }
+        }
+      ],
+      "negative_flows": [
+        {
+          "finding_id": 16,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 151,
+            "statement": "specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r19, \"ProxyLog.out\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: void LogToFile()>",
+            "index": 16,
+            "statement": "virtualinvoke $r3.<java.io.BufferedWriter: void write(java.lang.String)>($r5)"
+          }
+        },
+        {
+          "finding_id": 19,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 56,
+            "statement": "$r8 = virtualinvoke $r15.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>()"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 157,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"post\", $r3)"
+          }
+        },
+        {
+          "finding_id": 20,
+          "source": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 151,
+            "statement": "specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r19, \"ProxyLog.out\")"
+          },
+          "sink": {
+            "method": "<com.smart.studio.proxy.ProxyService: int onStartCommand(android.content.Intent,int,int)>",
+            "index": 157,
+            "statement": "staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>(\"post\", $r3)"
+          }
+        }
+      ],
+      "findings_positive": 17,
+      "findings_negative": 3,
+      "notes": [
+        "finding 1: matched by context (review) -> <com.smart.studio.proxy.ProxyService$PollerThread: void run()> [35]"
+      ]
+    },
+    {
+      "case": "roidsec",
+      "apk": "roidsec.apk",
+      "expected_sinks": [
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 37,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            1
+          ]
+        },
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 52,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            2
+          ]
+        },
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 97,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            3
+          ]
+        },
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 112,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            4
+          ]
+        },
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 67,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            5
+          ]
+        },
+        {
+          "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+          "index": 82,
+          "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)",
+          "finding_ids": [
+            6
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getCallLogs()>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r2.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r3, $r12, null, null, \"date DESC\")"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 37,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getContactInfo()>",
+            "index": 3,
+            "statement": "$r4 = virtualinvoke $r1.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r2, null, null, null, null)"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 52,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        },
+        {
+          "finding_id": 3,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getInstalledApp()>",
+            "index": 4,
+            "statement": "$r4 = virtualinvoke $r7.<android.content.pm.PackageManager: java.util.List getInstalledPackages(int)>(0)"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 97,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        },
+        {
+          "finding_id": 4,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getKernelApp()>",
+            "index": 4,
+            "statement": "$r4 = virtualinvoke $r7.<android.content.pm.PackageManager: java.util.List getInstalledPackages(int)>(0)"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 112,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        },
+        {
+          "finding_id": 5,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getSmsMessagesin()>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r6.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r7, $r2, null, null, \"date desc\")"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 67,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        },
+        {
+          "finding_id": 6,
+          "source": {
+            "method": "<cn.phoneSync.PhoneSyncService: java.lang.String getSmsMessagesout()>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r6.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r7, $r2, null, null, \"date desc\")"
+          },
+          "sink": {
+            "method": "<cn.phoneSync.PhoneSyncService: void BackConnTask()>",
+            "index": 82,
+            "statement": "virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r7)"
+          }
+        }
+      ],
+      "negative_flows": [],
+      "findings_positive": 6,
+      "findings_negative": 0,
+      "notes": [
+        "finding 1: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [37]",
+        "finding 2: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [52]",
+        "finding 3: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [97]",
+        "finding 4: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [112]",
+        "finding 5: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [67]",
+        "finding 6: matched by context (review) -> <cn.phoneSync.PhoneSyncService: void BackConnTask()> [82]"
+      ]
+    },
+    {
+      "case": "sms_send_locker_qqmagic",
+      "apk": "sms_send_locker_qqmagic.apk",
+      "expected_sinks": [
+        {
+          "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+          "index": 33,
+          "statement": "virtualinvoke $r19.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r12, $r11, $r10, $r23, $r24)",
+          "finding_ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+          "index": 130,
+          "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)",
+          "finding_ids": [
+            3,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 46,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 33,
+            "statement": "virtualinvoke $r19.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r12, $r11, $r10, $r23, $r24)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 43,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayOriginatingAddress()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 33,
+            "statement": "virtualinvoke $r19.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r12, $r11, $r10, $r23, $r24)"
+          }
+        },
+        {
+          "finding_id": 3,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 46,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        },
+        {
+          "finding_id": 6,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 82,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        },
+        {
+          "finding_id": 7,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 85,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        },
+        {
+          "finding_id": 8,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 87,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        }
+      ],
+      "negative_flows": [
+        {
+          "finding_id": 4,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 78,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        },
+        {
+          "finding_id": 5,
+          "source": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 80,
+            "statement": "$r12 = virtualinvoke $r9.<android.telephony.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 130,
+            "statement": "virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r16)"
+          }
+        }
+      ],
+      "findings_positive": 6,
+      "findings_negative": 2,
+      "notes": [
+        "finding 1: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [46]",
+        "finding 2: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [43]",
+        "finding 3: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [46]",
+        "finding 4: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [78]",
+        "finding 5: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [80]",
+        "finding 6: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [82]",
+        "finding 7: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [85]",
+        "finding 8: source matched by manual (reviewed) -> <qqkj.qqmagic.Fr: void onReceive(android.content.Context,android.content.Intent)> [87]"
+      ]
+    },
+    {
+      "case": "exprespam",
+      "apk": "exprespam.apk",
+      "expected_sinks": [
+        {
+          "method": "<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity$Progress: java.lang.String doPost(java.lang.String,java.lang.String)>",
+          "index": 12,
+          "statement": "$r7 = virtualinvoke $r3.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r5)",
+          "finding_ids": [
+            1,
+            2
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity$Progress: void run()>",
+            "index": 6,
+            "statement": "$r5 = virtualinvoke $r11.<android.telephony.TelephonyManager: java.lang.String getLine1Number()>()"
+          },
+          "sink": {
+            "method": "<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity$Progress: java.lang.String doPost(java.lang.String,java.lang.String)>",
+            "index": 12,
+            "statement": "$r7 = virtualinvoke $r3.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r5)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity$Progress: java.util.ArrayList getAddress()>",
+            "index": 40,
+            "statement": "$r6 = virtualinvoke $r2.<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity: android.database.Cursor managedQuery(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r3, null, $r4, null, null)"
+          },
+          "sink": {
+            "method": "<frhfsd.siksdk.ujdsfjkfsd.WrehifsdkjsActivity$Progress: java.lang.String doPost(java.lang.String,java.lang.String)>",
+            "index": 12,
+            "statement": "$r7 = virtualinvoke $r3.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r5)"
+          }
+        }
+      ],
+      "negative_flows": [],
+      "findings_positive": 2,
+      "findings_negative": 0,
+      "notes": []
+    },
+    {
+      "case": "godwon_samp",
+      "apk": "godwon_samp.apk",
+      "expected_sinks": [
+        {
+          "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+          "index": 11,
+          "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)",
+          "finding_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<android.sms.core.GoogleService: void onCreate()>",
+            "index": 3,
+            "statement": "$r2 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getLine1Number()>()"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<android.sms.core.GoogleService: void onCreate()>",
+            "index": 8,
+            "statement": "$r4 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        },
+        {
+          "finding_id": 3,
+          "source": {
+            "method": "<android.sms.core.BootReceiver: android.telephony.SmsMessage[] getMessagesFromIntent(android.content.Intent)>",
+            "index": 2,
+            "statement": "$r2 = virtualinvoke $r1.<android.content.Intent: java.io.Serializable getSerializableExtra(java.lang.String)>(\"pdus\")"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        },
+        {
+          "finding_id": 4,
+          "source": {
+            "method": "<android.sms.core.BootReceiver: android.telephony.SmsMessage[] getMessagesFromIntent(android.content.Intent)>",
+            "index": 2,
+            "statement": "$r2 = virtualinvoke $r1.<android.content.Intent: java.io.Serializable getSerializableExtra(java.lang.String)>(\"pdus\")"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        },
+        {
+          "finding_id": 5,
+          "source": {
+            "method": "<android.sms.core.BootReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 8,
+            "statement": "$r7 = virtualinvoke $r9.<android.telephony.TelephonyManager: java.lang.String getLine1Number()>()"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        },
+        {
+          "finding_id": 6,
+          "source": {
+            "method": "<android.sms.core.BootReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 14,
+            "statement": "$r10 = virtualinvoke $r9.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()"
+          },
+          "sink": {
+            "method": "<android.sms.core.ToolHelper: java.lang.String postData(java.lang.String,java.util.List)>",
+            "index": 11,
+            "statement": "$r4 = virtualinvoke $r8.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r3)"
+          }
+        }
+      ],
+      "negative_flows": [],
+      "findings_positive": 6,
+      "findings_negative": 0,
+      "notes": []
+    },
+    {
+      "case": "phospy",
+      "apk": "phospy.apk",
+      "expected_sinks": [
+        {
+          "method": "<com.labado.lulaoshi.myService: void log()>",
+          "index": 59,
+          "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void writeUTF(java.lang.String)>($r2)",
+          "finding_ids": [
+            1
+          ]
+        },
+        {
+          "method": "<com.labado.lulaoshi.myService: void log()>",
+          "index": 82,
+          "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void write(byte[],int,int)>($r3, 0, $i4)",
+          "finding_ids": [
+            2
+          ]
+        }
+      ],
+      "negative_sinks": [
+        {
+          "method": "<com.labado.lulaoshi.myService: void log()>",
+          "index": 64,
+          "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void writeUTF(java.lang.String)>($r2)",
+          "finding_ids": [
+            5
+          ]
+        }
+      ],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 20,
+            "statement": "$r7 = virtualinvoke $r15.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()"
+          },
+          "sink": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 59,
+            "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void writeUTF(java.lang.String)>($r2)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 48,
+            "statement": "specialinvoke $r19.<java.io.FileInputStream: void <init>(java.lang.String)>($r2)"
+          },
+          "sink": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 82,
+            "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void write(byte[],int,int)>($r3, 0, $i4)"
+          }
+        }
+      ],
+      "negative_flows": [
+        {
+          "finding_id": 3,
+          "source": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 20,
+            "statement": "$r7 = virtualinvoke $r15.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()"
+          },
+          "sink": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 82,
+            "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void write(byte[],int,int)>($r3, 0, $i4)"
+          }
+        },
+        {
+          "finding_id": 4,
+          "source": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 48,
+            "statement": "specialinvoke $r19.<java.io.FileInputStream: void <init>(java.lang.String)>($r2)"
+          },
+          "sink": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 59,
+            "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void writeUTF(java.lang.String)>($r2)"
+          }
+        },
+        {
+          "finding_id": 5,
+          "source": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 48,
+            "statement": "specialinvoke $r19.<java.io.FileInputStream: void <init>(java.lang.String)>($r2)"
+          },
+          "sink": {
+            "method": "<com.labado.lulaoshi.myService: void log()>",
+            "index": 64,
+            "statement": "virtualinvoke $r8.<java.io.DataOutputStream: void writeUTF(java.lang.String)>($r2)"
+          }
+        }
+      ],
+      "findings_positive": 2,
+      "findings_negative": 3,
+      "notes": [
+        "finding 1: matched by manual (reviewed) -> <com.labado.lulaoshi.myService: void log()> [59]",
+        "finding 4: matched by manual (reviewed) -> <com.labado.lulaoshi.myService: void log()> [59]",
+        "finding 5: matched by context (review) -> <com.labado.lulaoshi.myService: void log()> [64]"
+      ]
+    },
+    {
+      "case": "death_ring_materialflow",
+      "apk": "death_ring_materialflow.apk",
+      "expected_sinks": [
+        {
+          "method": "<com.qc.model.SmsSenderAndReceiver: void send2(java.lang.String,java.lang.String)>",
+          "index": 3,
+          "statement": "virtualinvoke $r2.<android.telephony.gsm.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r0, null, $r1, null, null)",
+          "finding_ids": [
+            1
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<com.qc.access.SmsReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 246,
+            "statement": "$r17 = virtualinvoke $r7.<android.telephony.gsm.SmsMessage: java.lang.String getDisplayMessageBody()>()"
+          },
+          "sink": {
+            "method": "<com.qc.model.SmsSenderAndReceiver: void send2(java.lang.String,java.lang.String)>",
+            "index": 3,
+            "statement": "virtualinvoke $r2.<android.telephony.gsm.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>($r0, null, $r1, null, null)"
+          }
+        }
+      ],
+      "negative_flows": [],
+      "findings_positive": 1,
+      "findings_negative": 0,
+      "notes": []
+    },
+    {
+      "case": "fakedaum",
+      "apk": "fakedaum.apk",
+      "expected_sinks": [
+        {
+          "method": "<com.mvlove.http.HttpWrapper: java.lang.Object post(org.apache.http.client.methods.HttpPost,java.lang.String,java.util.Map,java.lang.Class)>",
+          "index": 32,
+          "statement": "$r16 = interfaceinvoke $r15.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r1)",
+          "finding_ids": [
+            1,
+            2
+          ]
+        }
+      ],
+      "negative_sinks": [],
+      "out_of_spec_sinks": [],
+      "expected_flows": [
+        {
+          "finding_id": 1,
+          "source": {
+            "method": "<com.mvlove.receiver.SmsReceiver: void onReceive(android.content.Context,android.content.Intent)>",
+            "index": 75,
+            "statement": "$r8 = staticinvoke <android.telephony.SmsMessage: android.telephony.SmsMessage createFromPdu(byte[])>($r20)"
+          },
+          "sink": {
+            "method": "<com.mvlove.http.HttpWrapper: java.lang.Object post(org.apache.http.client.methods.HttpPost,java.lang.String,java.util.Map,java.lang.Class)>",
+            "index": 32,
+            "statement": "$r16 = interfaceinvoke $r15.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r1)"
+          }
+        },
+        {
+          "finding_id": 2,
+          "source": {
+            "method": "<com.mvlove.util.PhoneUtil: java.lang.String getImei(android.content.Context)>",
+            "index": 3,
+            "statement": "$r2 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getSimSerialNumber()>()"
+          },
+          "sink": {
+            "method": "<com.mvlove.http.HttpWrapper: java.lang.Object post(org.apache.http.client.methods.HttpPost,java.lang.String,java.util.Map,java.lang.Class)>",
+            "index": 32,
+            "statement": "$r16 = interfaceinvoke $r15.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r1)"
+          }
+        }
+      ],
+      "negative_flows": [],
+      "findings_positive": 2,
+      "findings_negative": 0,
+      "notes": []
+    }
+  ],
+  "unmatched_findings": []
+}

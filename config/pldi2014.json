@@ -1,0 +1,62 @@
+{
+  "benchmark_tag": "DroidBench_1.0",
+  "benchmark_commit": "70ab9a07b84a453af500afafba2661d4b0c3397e",
+  "paper": "https://www.rasthofer.info/publications/paper/PLDI2014-FlowDroid.pdf",
+  "scope": "Table 1 and Section 6.1; 39 bundled apps, four implicit-flow apps excluded by footnote 1.",
+  "included_apks": [
+    "ArraysAndLists_ArrayAccess1.apk",
+    "ArraysAndLists_ArrayAccess2.apk",
+    "ArraysAndLists_ListAccess1.apk",
+    "Callbacks_AnonymousClass1.apk",
+    "Callbacks_Button1.apk",
+    "Callbacks_Button2.apk",
+    "Callbacks_LocationLeak1.apk",
+    "Callbacks_LocationLeak2.apk",
+    "Callbacks_MethodOverride1.apk",
+    "FieldAndObjectSensitivity_FieldSensitivity1.apk",
+    "FieldAndObjectSensitivity_FieldSensitivity2.apk",
+    "FieldAndObjectSensitivity_FieldSensitivity3.apk",
+    "FieldAndObjectSensitivity_FieldSensitivity4.apk",
+    "FieldAndObjectSensitivity_InheritedObjects1.apk",
+    "FieldAndObjectSensitivity_ObjectSensitivity1.apk",
+    "FieldAndObjectSensitivity_ObjectSensitivity2.apk",
+    "InterAppCommunication_IntentSink1.apk",
+    "InterAppCommunication_IntentSink2.apk",
+    "InterAppCommunication_ActivityCommunication1.apk",
+    "Lifecycle_BroadcastReceiverLifecycle1.apk",
+    "Lifecycle_ActivityLifecycle1.apk",
+    "Lifecycle_ActivityLifecycle2.apk",
+    "Lifecycle_ActivityLifecycle3.apk",
+    "Lifecycle_ActivityLifecycle4.apk",
+    "Lifecycle_ServiceLifecycle1.apk",
+    "AndroidNonspecific_Loop1.apk",
+    "AndroidNonspecific_Loop2.apk",
+    "AndroidNonspecific_SourceCodeSpecific1.apk",
+    "AndroidNonspecific_StaticInitialization1.apk",
+    "AndroidNonspecific_UnreachableCode.apk",
+    "AndroidSpecific_PrivateDataLeak1.apk",
+    "AndroidSpecific_PrivateDataLeak2.apk",
+    "AndroidSpecific_DirectLeak1.apk",
+    "AndroidSpecific_InactiveActivity.apk",
+    "AndroidSpecific_LogNoLeak.apk"
+  ],
+  "excluded_apks": [
+    "ImplicitFlows_ImplicitFlow1.apk",
+    "ImplicitFlows_ImplicitFlow2.apk",
+    "ImplicitFlows_ImplicitFlow3.apk",
+    "ImplicitFlows_ImplicitFlow4.apk"
+  ],
+  "published_counts": {
+    "tp": 26,
+    "fp": 4,
+    "fn": 2
+  },
+  "published_display": {
+    "precision": "86%",
+    "recall": "93%",
+    "f_measure": "0.89"
+  },
+  "scoring_code_status": "Original script unavailable. User authorized recovery of key evaluation components. Table 1 sink labels and evaluator are implemented in the recorded recovered files.",
+  "scoring_code": "scripts/score_pldi2014.py",
+  "gold": "config/pldi2014-gold.json"
+}

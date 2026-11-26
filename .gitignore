@@ -1,0 +1,12 @@
+# downloaded by scripts/setup_*.sh
+vendor/
+tools/
+# tool logs and local environment
+logs/
+.venv/
+__pycache__/
+.DS_Store
+# in-progress run checkpoints
+*.partial.jsonl
+# experiment outputs (committed as results.tar.gz)
+results/

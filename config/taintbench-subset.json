@@ -1,0 +1,7 @@
+{
+  "benchmark": "TaintBench (Luo et al., EMSE 2021), https://github.com/TaintBench; APKs from each app repository's 'APK' release, ground truth <app>_findings.json",
+  "spec": "vendor/TaintBench/spec/TB_SourcesAndSinks.txt (used by both FlowDroid and the analyzer)",
+  "apk_dir": "vendor/TaintBench/apk",
+  "candidates": ["proxy_samp.apk", "roidsec.apk", "sms_send_locker_qqmagic.apk", "exprespam.apk", "godwon_samp.apk", "phospy.apk", "death_ring_materialflow.apk", "fakedaum.apk"],
+  "included_apks": ["proxy_samp.apk", "roidsec.apk", "sms_send_locker_qqmagic.apk", "exprespam.apk", "godwon_samp.apk", "phospy.apk", "death_ring_materialflow.apk", "fakedaum.apk"]
+}
